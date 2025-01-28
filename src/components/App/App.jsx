@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import Header from '../Header/Header'
+import Header from '../Header/Header.jsx'
 import Main from '../Main/Main.jsx'
 import ModalWithForm from '../ModalWithForm/ModalWithFrom.jsx'
-import Call from '../ItemModal/Call.jsx'
+import Call from '../ItemModal/ItemModal.jsx'
 import { APIkey, coordinates} from '../../utils/constants.js'
 import { getWeather, filterWeatherData } from '../../utils/weatherAPI.js'
+import Footer from '../Footer/Footer.jsx'
 
 function App() {
 const [weatherData, setWeatherData] = useState({
@@ -113,6 +114,7 @@ useEffect(() => {
       onClose={closeActiveModal}
       />
         </div>
+        <Footer />
     </div>
   )
 }
