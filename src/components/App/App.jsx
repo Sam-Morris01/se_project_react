@@ -50,6 +50,7 @@ useEffect(() => {
         buttonText="Add garment"
         activeModal={activeModal}
         onClose={closeActiveModal}
+        isOpen={activeModal === "add-garment"}
 
 
       >
