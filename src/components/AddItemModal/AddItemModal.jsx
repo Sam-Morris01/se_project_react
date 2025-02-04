@@ -20,12 +20,6 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, isLoading }) {
       imageUrl: values.imageUrl || "",
       weather: values.weatherType || "",
     });
-
-    // if (result && typeof result.then === "function") {
-    //   result.then(() => {
-    //     resetForm();
-    //   });
-    // }
   };
 
   return (
