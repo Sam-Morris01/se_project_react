@@ -1,7 +1,7 @@
 import "./ItemModal.css";
 import closeButton from "../../assets/close-white.svg";
 
-function Call ({activeModal, card, onClose, onDelete}) {
+function ItemModal ({activeModal, card, onClose, onDelete}) {
   return (
     <div className={`modal ${activeModal === 'preview' && "modal_opened"}`}>
         <div className="modal__content modal__content_type_image">
@@ -29,4 +29,4 @@ function Call ({activeModal, card, onClose, onDelete}) {
   );
 }
 
-export default Call;
+export default ItemModal;

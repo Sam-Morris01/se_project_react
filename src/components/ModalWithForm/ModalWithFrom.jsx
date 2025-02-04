@@ -1,17 +1,8 @@
 import "./ModalWithForm.css";
 import closeButton from "../../assets/close.svg";
-import { useEffect } from "react";
+
 
 function ModalWithForm({ children, buttonText, title, onClose, isOpen, onSubmit, isLoading, isValid }) {
-
-  useEffect(() => {
-    if (!isOpen) {
-      const form = document.querySelector(".modal__form");
-      if (form) {
-        form.reset();
-      }
-    }
-  }, [isOpen]);
 
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
