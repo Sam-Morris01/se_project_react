@@ -1,0 +1,7 @@
+{
+  "/items/*": "/items/$1",
+  "/items": "/items",
+  "/signup": "/signup",
+  "/signin": "/signin",
+  "/users/me": "/users/me"
+} 

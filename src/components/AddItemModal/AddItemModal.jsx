@@ -1,17 +1,26 @@
 import "./AddItemModal.css";
 import { useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithFrom.jsx";
-import { useFormAndValidation } from "../../../hooks/useFormAndValidation";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation.js";
 
 function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, isLoading }) {
-  const { values, handleChange, errors, resetForm, isValid } =
-    useFormAndValidation();
+  const initialValues = {
+    name: "",
+    imageUrl: "",
+    weatherType: "",
+  };
+
+  const { values, handleChange, setValues, errors, isValid } = useFormAndValidation(initialValues);
 
   useEffect(() => {
-    if (!isOpen) {
-      resetForm();
+    if (isOpen) {
+      setValues({
+        name: "",
+        imageUrl: "",
+        weatherType: "",
+      });
     }
-  }, [isOpen, resetForm]);
+  }, [isOpen, setValues]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +42,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, isLoading }) {
       isValid={isValid}
     >
       <label htmlFor="name" className="modal__label">
-        Name{" "}
+        Name
         <input
           type="text"
           className="modal__input"
@@ -46,10 +55,10 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, isLoading }) {
           onChange={handleChange}
           value={values.name || ""}
         />
-        {errors.name && <span className="modal__error">{errors.name}</span>}
+        {errors?.name && <span className="modal__error">{errors.name}</span>}
       </label>
       <label htmlFor="imageUrl" className="modal__label">
-        Image{" "}
+        Image
         <input
           type="url"
           className="modal__input"
@@ -60,7 +69,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, isLoading }) {
           onChange={handleChange}
           value={values.imageUrl || ""}
         />
-        {errors.imageUrl && (
+        {errors?.imageUrl && (
           <span className="modal__error">{errors.imageUrl}</span>
         )}
       </label>

@@ -8,6 +8,13 @@
   border-radius: 10%;
 }
 
+.card:hover {
+  cursor: pointer;
+  opacity: 75%;
+  transition: 0.2s, ease-in;
+}
+
+
 .card__name {
   position: absolute;
   top: 15px;
@@ -26,4 +33,27 @@
   width: 100%;
   border-radius: 10%;
   cursor: pointer;
+}
+
+.card__like-button {
+  background: transparent url(../../assets/liked.svg) center
+    no-repeat;
+  width: 21px;
+  height: 18px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 85px;
+  opacity: 1;
+}
+
+.card__like-button_active {
+  background-image: url(../../assets/unliked.svg);
+  opacity: 0.9;
+}
+
+.card__like-button:hover {
+  opacity: 0.3;
+  transition: 0.3s;
 }
