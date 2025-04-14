@@ -28,9 +28,9 @@ const EditProfileModal = ({ isOpen, onClose, onSubmit }) => {
   };
 
   useEffect(() => {
-    if (isOpen) {
-      setName(currentUser.name);
-      setAvatar(currentUser.avatar);
+    if (isOpen && currentUser) {
+      setName(currentUser.name || "");
+      setAvatar(currentUser.avatar || "");
     }
   }, [isOpen, currentUser]);
 
@@ -38,7 +38,7 @@ const EditProfileModal = ({ isOpen, onClose, onSubmit }) => {
     <ModalWithForm
       title="Change profile data"
       isOpen={isOpen}
-      closeActiveModal={onClose}
+      onClose={onClose}
       onSubmit={handleOnSubmit}
       buttonText="Save changes"
       disabled={isFormInvalid}

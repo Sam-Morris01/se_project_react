@@ -20,8 +20,8 @@ function signIn({ email, password }) {
   })
     .then(checkResponse)
     .then((data) => {
-      if (data.token) {
-        setToken(data.token);
+      if (data.jwt) {
+        setToken(data.jwt);
       }
       return data;
     });

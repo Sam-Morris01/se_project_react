@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-
+import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
 
@@ -47,13 +46,25 @@ function App() {
   });
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    console.log("handleAddItemModalSubmit called with:", { name, imageUrl, weather });
+    
+    if (!isLoggedIn) {
+      console.error("You must be logged in to add items");
+      return;
+    }
+
+    console.log("User is logged in, proceeding with API call");
     setIsLoading(true);
+    
     addItem({ name, imageUrl, weather })
       .then((item) => {
+        console.log("Item added successfully:", item);
         setClothingItems((prevItems) => [item, ...prevItems]);
         closeActiveModal();
       })
-      .catch(console.error)
+      .catch((err) => {
+        console.error("Error adding item:", err);
+      })
       .finally(() => {
         setIsLoading(false);
       });
@@ -110,9 +121,19 @@ function App() {
   //Handle Logging in
   const handleLogin = ({ email, password }) => {
     const makeRequest = async () => {
-      const userData = await signIn({ email, password });
-      setIsLoggedIn(true);
-      setCurrentUser(userData);
+      try {
+        const userData = await signIn({ email, password });
+        console.log("Login response:", userData);
+        if (userData.jwt) {
+          setIsLoggedIn(true);
+          const userInfo = await checkToken(userData.jwt);
+          setCurrentUser(userInfo);
+        } else {
+          console.error("No JWT token received in login response");
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+      }
     };
 
     handleSubmit(makeRequest);

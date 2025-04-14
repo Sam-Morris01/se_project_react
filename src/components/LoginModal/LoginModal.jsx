@@ -38,7 +38,7 @@ const LoginModal = ({
   return (
     <ModalWithForm
       isOpen={isOpen}
-      closeActiveModal={closeActiveModal}
+      onClose={closeActiveModal}
       onSubmit={handleSubmit}
       title="Log in"
       buttonText={buttonText}

@@ -89,7 +89,6 @@
 .modal__submit {
   width: 124px;
   height: 36px;
-  margin: 32px 0 0;
   border-radius: 8px;
   color: #fff;
   background-color: #0000004d;
@@ -115,7 +114,7 @@
   line-height: 15px;
 }
 
-modal__alternative-button {
+.modal__alternative-button {
   background: none;
   border: none;
   color: #000;

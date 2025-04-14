@@ -3,17 +3,18 @@ import useModalClose from "../../hooks/useModalClose";
 import "./ModalWithForm.css";
 import closeButton from "../../assets/close.svg";
 
-
-
-function ModalWithForm({ children, buttonText, title, closeActiveModal, isOpen, onSubmit, isLoading, alternativeButtonText, onAlternativeClick, disabled}) {
-  useModalClose(isOpen, closeActiveModal);
+function ModalWithForm({ children, buttonText, title, onClose, isOpen, onSubmit, isLoading, alternativeButtonText, onAlternativeClick, disabled}) {
+  useModalClose(isOpen, onClose);
   const formRef = useRef(null);
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
+    console.log("ModalWithForm mounted/updated, isOpen:", isOpen);
     const checkValidity = () => {
       if (formRef.current) {
-        setIsValid(formRef.current.checkValidity() && !disabled);
+        const formIsValid = formRef.current.checkValidity() && !disabled;
+        console.log("Form validity checked:", formIsValid);
+        setIsValid(formIsValid);
       }
     };
 
@@ -26,15 +27,23 @@ function ModalWithForm({ children, buttonText, title, closeActiveModal, isOpen, 
     }
   }, [isOpen, disabled]);
 
+  const handleFormSubmit = (e) => {
+    console.log("Form submit event triggered");
+    e.preventDefault();
+    if (onSubmit) {
+      console.log("Calling onSubmit handler");
+      onSubmit(e);
+    }
+  };
+
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
       <div className="modal__content modal__content_type_input">
         <h2 className="modal__title">{title}</h2>
         <button
-        onClick={closeActiveModal}
-        type="button"
-        className="modal__close"
-        disabled={isLoading}
+          onClick={onClose}
+          type="button"
+          className="modal__close"
         >
           <img
             src={closeButton}
@@ -45,20 +54,19 @@ function ModalWithForm({ children, buttonText, title, closeActiveModal, isOpen, 
         <form
           ref={formRef}
           className="modal__form"
-          onSubmit={onSubmit}
+          onSubmit={handleFormSubmit}
           noValidate
         >
           {children}
           <div className="modal__button-container">
-          <button 
-          type="submit" 
-          className={`modal__submit ${isValid ? "modal__submit_valid" : ""}`}
-          disabled={!isValid || isLoading}
-          >
-
-            {buttonText}
-          </button>
-          {alternativeButtonText && (
+            <button 
+              type="submit" 
+              className={`modal__submit ${isValid ? "modal__submit_valid" : ""}`}
+              disabled={!isValid || isLoading}
+            >
+              {isLoading ? "Saving..." : buttonText}
+            </button>
+            {alternativeButtonText && (
               <button
                 className="modal__alternative-button"
                 type="button"

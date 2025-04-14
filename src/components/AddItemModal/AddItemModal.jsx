@@ -24,11 +24,26 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, isLoading }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItemModalSubmit({
-      name: values.name || "",
-      imageUrl: values.imageUrl || "",
-      weather: values.weatherType || "",
+    console.log("Form values:", values);
+    
+    if (!isValid) {
+      console.log("Form is not valid");
+      return;
+    }
+    
+    console.log("Calling onAddItemModalSubmit with:", {
+      name: values.name,
+      imageUrl: values.imageUrl,
+      weather: values.weatherType
     });
+    
+    if (onAddItemModalSubmit) {
+      onAddItemModalSubmit({
+        name: values.name || "",
+        imageUrl: values.imageUrl || "",
+        weather: values.weatherType || "",
+      });
+    }
   };
 
   return (
@@ -39,7 +54,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, isLoading }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
-      isValid={isValid}
+      disabled={!isValid}
     >
       <label htmlFor="name" className="modal__label">
         Name

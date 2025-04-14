@@ -38,8 +38,13 @@ function Profile({
 
   const handleProfileUpdate = async (updatedData) => {
     try {
-      const updatedUser = await updateProfile(getToken(), updatedData);
-
+      const token = getToken();
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+      
+      const updatedUser = await updateProfile(token, updatedData);
       setCurrentUser(updatedUser);
       handleCloseEditProfileModal();
     } catch (error) {
