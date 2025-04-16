@@ -9,11 +9,11 @@ function ModalWithForm({ children, buttonText, title, onClose, isOpen, onSubmit,
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
-    console.log("ModalWithForm mounted/updated, isOpen:", isOpen);
+
     const checkValidity = () => {
       if (formRef.current) {
         const formIsValid = formRef.current.checkValidity() && !disabled;
-        console.log("Form validity checked:", formIsValid);
+
         setIsValid(formIsValid);
       }
     };
@@ -30,10 +30,9 @@ function ModalWithForm({ children, buttonText, title, onClose, isOpen, onSubmit,
   const handleFormSubmit = (e) => {
     console.log("Form submit event triggered");
     e.preventDefault();
-    if (onSubmit) {
-      console.log("Calling onSubmit handler");
-      onSubmit(e);
-    }
+    console.log("Calling onSubmit handler");
+    onSubmit(e);
+    
   };
 
   return (
@@ -55,7 +54,7 @@ function ModalWithForm({ children, buttonText, title, onClose, isOpen, onSubmit,
           ref={formRef}
           className="modal__form"
           onSubmit={handleFormSubmit}
-          noValidate
+          noValidate={false}
         >
           {children}
           <div className="modal__button-container">

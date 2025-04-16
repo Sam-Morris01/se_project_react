@@ -87,21 +87,18 @@ function App() {
 
     // Handle Likes
     const handleCardLike = ({ id, isLiked }) => {
-      !isLiked
-        ? addCardLike(id)
-            .then((updatedCard) => {
-              setClothingItems((cards) =>
-                cards.map((item) => (item._id === id ? updatedCard.data : item))
-              );
-            })
-            .catch((err) => console.log(err))
-        : removeCardLike(id)
-            .then((updatedCard) => {
-              setClothingItems((cards) =>
-                cards.map((item) => (item._id === id ? updatedCard.data : item))
-              );
-            })
-            .catch((err) => console.log(err));
+      console.log("Like clicked for item:", id, "isLiked:", isLiked);
+      
+      (!isLiked ? addCardLike(id) : removeCardLike(id))
+        .then((updatedCard) => {
+          console.log("Server response:", updatedCard);
+          setClothingItems((cards) =>
+            cards.map((item) => (item._id === id ? updatedCard : item))
+          );
+        })
+        .catch((err) => {
+          console.error("Error updating like status:", err);
+        });
     };
 
   const handleAddClick = () => {
@@ -280,7 +277,7 @@ function App() {
               isOpen={activeModal === "add-garment"}
               onClose={closeActiveModal}
               onAddItemModalSubmit={handleAddItemModalSubmit}
-              isLoading={isLoading ? "Saving..." : "Add garmet"}
+              isLoading={isLoading}
             />
             <ItemModal
               activeModal={activeModal}

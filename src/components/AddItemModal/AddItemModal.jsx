@@ -27,7 +27,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, isLoading }) {
     console.log("Form values:", values);
     
     if (!isValid) {
-      console.log("Form is not valid");
+
       return;
     }
     

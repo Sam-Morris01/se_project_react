@@ -55,8 +55,10 @@ function deleteItem(id) {
 
 function addCardLike(itemID) {
   const token = getToken();
+  console.log("Adding like for item:", itemID);
 
   if (!token) {
+    console.error("No token found when trying to like item");
     return Promise.reject({
       error: "You must be logged in to like items",
     });
@@ -66,14 +68,29 @@ function addCardLike(itemID) {
     method: "PUT",
     headers: {
       authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
-  }).then(checkResponse);
+  })
+    .then(response => {
+      console.log("Like response status:", response.status);
+      return checkResponse(response);
+    })
+    .then(data => {
+      console.log("Like response data:", data);
+      return data;
+    })
+    .catch(error => {
+      console.error("Error liking item:", error);
+      throw error;
+    });
 }
 
 function removeCardLike(itemID) {
   const token = getToken();
+  console.log("Removing like for item:", itemID);
 
   if (!token) {
+    console.error("No token found when trying to unlike item");
     return Promise.reject({
       error: "You must be logged in to unlike items",
     });
@@ -83,8 +100,21 @@ function removeCardLike(itemID) {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
-  }).then(checkResponse);
+  })
+    .then(response => {
+      console.log("Unlike response status:", response.status);
+      return checkResponse(response);
+    })
+    .then(data => {
+      console.log("Unlike response data:", data);
+      return data;
+    })
+    .catch(error => {
+      console.error("Error unliking item:", error);
+      throw error;
+    });
 }
 
 function updateUserInfo({ name, avatar }) {
