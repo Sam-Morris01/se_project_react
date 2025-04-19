@@ -35,7 +35,7 @@ WTWR (What to Wear?) is a full-stack application that suggests appropriate cloth
 ## Repository Links
 
 - Frontend (Current Repository): [WTWR Frontend](https://github.com/your-username/wtwr-react)
-- Backend Repository: [WTWR Backend](https://github.com/practicum-student/se_project_express)
+- Backend Repository: [WTWR Backend](https://github.com/Sam-Morris01/se_project_express.git)
 
 ## Installation & Setup
 
