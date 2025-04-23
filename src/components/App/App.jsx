@@ -145,7 +145,10 @@ function App() {
   //Handle Registration
   const handleRegistration = ({ name, avatar, email, password }) => {
     const makeRequest = async () => {
-      const userData = await signUp({ email, password, name, avatar });
+      // First sign up the user
+      await signUp({ email, password, name, avatar });
+      // Then automatically sign them in
+      const userData = await signIn({ email, password });
       setIsLoggedIn(true);
       setCurrentUser(userData);
     };

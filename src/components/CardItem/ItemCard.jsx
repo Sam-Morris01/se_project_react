@@ -13,13 +13,12 @@ function ItemCard({ item, onCardClick, onCardLike }) {
     onCardLike({ id: item._id, isLiked: isLiked });
   };
 
-  const isLiked =
-    (currentUser && item?.likes?.some((id) => id === currentUser._id)) || false;
+  const isLiked = currentUser && item?.likes && Array.isArray(item.likes) && 
+    item.likes.some((id) => id === currentUser._id);
 
   const itemLikeButtonClassName = `card__like-button ${
     isLiked ? "card__like-button_active" : ""
   }`;
-
 
   return (
     <li className="card">

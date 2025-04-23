@@ -14,11 +14,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, isLoading }) {
 
   useEffect(() => {
     if (isOpen) {
-      setValues({
-        name: "",
-        imageUrl: "",
-        weatherType: "",
-      });
+      setValues(initialValues);
     }
   }, [isOpen, setValues]);
 
